@@ -1,81 +1,60 @@
-# WebApp boilerplate with React JS and Flask API
+# Build a StarWars REST API
 
-Build web applications using React.js for the front end and python/flask for your backend API.
+It is recommended to develop this project in conjunction with the StarWars Blog Reading List, you will eventually integrate both projects and have fully functional applications with back-end and front-end.
 
-- Documentation can be found here: https://start.4geeksacademy.com/starters/react-flask
-- Here is a video on [how to use this template](https://www.loom.com/share/f37c6838b3f1496c95111e515e83dd9b)
-- Integrated with Pipenv for package managing.
-- Fast deployment to heroku [in just a few steps here](https://start.4geeksacademy.com/backend/deploy-heroku-posgres).
-- Use of .env file.
-- SQLAlchemy integration for database abstraction.
+Today we are going to build an API to manage a blog (about StarWars). Users on this blog will be able to list planets, list characters, and create or remove favorites.
 
-### 1) Installation:
+To allow users to do all of this, we must follow these steps:
 
-> If you use Github Codespaces (recommended) or Gitpod this template will already come with Python, Node and the Posgres Database installed. If you are working locally make sure to install Python 3.10, Node 
+1. Start by modeling the database: Create a database and the tables needed to store that information. You may have already done this when you did the StarWars Data Modeling project in python/flask or node/express.
+2. Build your endpoints using Flask or Express (depending on your cohort's main language).
+3. Constantly test your endpoints with Postman.
 
-It is recomended to install the backend first, make sure you have Python 3.8, Pipenv and a database engine (Posgress recomended)
 
-1. Install the python packages: `$ pipenv install`
-2. Create a .env file based on the .env.example: `$ cp .env.example .env`
-3. Install your database engine and create your database, depending on your database you have to create a DATABASE_URL variable with one of the possible values, make sure you replace the valudes with your database information:
+⚠ You will need to have a database installed and Node.js or Python 3.7+ installed if you do it locally, but all of that is already installed on Codespaces or Gitpod.
 
-| Engine    | DATABASE_URL                                        |
-| --------- | --------------------------------------------------- |
-| SQLite    | sqlite:////test.db                                  |
-| MySQL     | mysql://username:password@localhost:port/example    |
-| Postgress | postgres://username:password@localhost:5432/example |
+The boilerplate's README files have a video on how to start and complete your API.
 
-4. Migrate the migrations: `$ pipenv run migrate` (skip if you have not made changes to the models on the `./src/api/models.py`)
-5. Run the migrations: `$ pipenv run upgrade`
-6. Run the application: `$ pipenv run start`
+🐍 For Python: There is an interactive tutorial on how to build a Flask API, it's a similar process, but instead of tasks, here you will be dealing with people and planets.
 
-> Note: Codespaces users can connect to psql by typing: `psql -h localhost -U gitpod example`
+👉 Please follow these steps on how to start a coding project.
 
-### Undo a migration
+💡 **Important**: Remember to save and upload your code to GitHub by creating a new repository, updating the remote (`git remote set-url origin <your new url>`), and uploading the code to your new repository using the add, commit and push commands from the git terminal.
 
-You are also able to undo a migration by running
+## 📝 Instructions
 
-```sh
-$ pipenv run downgrade
-```
+Create an API that connects to a database and implements the following endpoints (very similar to SWAPI.dev or SWAPI.tech):
 
-### Backend Populate Table Users
+- [GET] /people: Get a list of all the people in the database.
+- [GET] /people/<int:people_id>: Get one single person's information.
+- [GET] /planets: Get a list of all the planets in the database.
+- [GET] /planets/<int:planet_id>: Get one single planet's information.
 
-To insert test users in the database execute the following command:
+Additionally, create the following endpoints to allow your StarWars blog to have users and favorites:
 
-```sh
-$ flask insert-test-users 5
-```
+- [GET] /users: Get a list of all the blog post users.
+- [GET] /users/favorites: Get all the favorites that belong to the current user.
+- [POST] /favorite/planet/<int:planet_id>: Add a new favorite planet to the current user with the planet id = planet_id.
+- [POST] /favorite/people/<int:people_id>: Add new favorite people to the current user with the people id = people_id.
+- [DELETE] /favorite/planet/<int:planet_id>: Delete a favorite planet with the id = planet_id.
+- [DELETE] /favorite/people/<int:people_id>: Delete a favorite people with the id = people_id.
 
-And you will see the following message:
+Your current API does not have an authentication system (yet), which is why the only way to create users is directly on the database using the Flask admin.
 
-```
-  Creating test users
-  test_user1@test.com created.
-  test_user2@test.com created.
-  test_user3@test.com created.
-  test_user4@test.com created.
-  test_user5@test.com created.
-  Users created successfully!
-```
+**Note:** here is a sample API in Postman: [Sample API](https://documenter.getpostman.com/view/2432393/TzRSgnTS#a4174b48-3fc8-46e3-bf82-19a08107666f)
 
-### **Important note for the database and the data inside it**
+## 📖 Fundamentals
 
-Every Github codespace environment will have **its own database**, so if you're working with more people eveyone will have a different database and different records inside it. This data **will be lost**, so don't spend too much time manually creating records for testing, instead, you can automate adding records to your database by editing ```commands.py``` file inside ```/src/api``` folder. Edit line 32 function ```insert_test_data``` to insert the data according to your model (use the function ```insert_test_users``` above as an example). Then, all you need to do is run ```pipenv run insert-test-data```.
+This exercise will make you practice the following fundamentals:
 
-### Front-End Manual Installation:
+- Building a RESTful API using one of the most popular libraries, Python Flask or Express.js.
+- Building a database with the ORM called SQLAlchemy or TypeORM.
+- Database Migrations using the migration system Alembic or the native migration system from TypeORM.
 
--   Make sure you are using node version 14+ and that you have already successfully installed and runned the backend.
+## 😎 Feeling confident?
 
-1. Install the packages: `$ npm install`
-2. Start coding! start the webpack dev server `$ npm run start`
+The following requirements are not necessary to successfully complete this project, but you would like to try coding them if you feel like challenging yourself ☺️
 
-## Publish your website!
+- Create also endpoints to add (POST), update (PUT), and delete (DELETE) planets and people. That way all the database information can be managed using the API instead of having to rely on the Flask admin to create the planets and people.
 
-This boilerplate it's 100% read to deploy with Render.com and Heroku in a matter of minutes. Please read the [official documentation about it](https://start.4geeksacademy.com/deploy).
-
-### Contributors
-
-This template was built as part of the 4Geeks Academy [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about our [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
-
-You can find other templates and resources like this at the [school github page](https://github.com/4geeksacademy/).
+This and many other projects are built by students as part of the 4Geeks Academy Coding Bootcamp by Alejandro Sanchez and many other contributors. Find out more about our Full Stack Developer Course, and Data Science Bootcamp.
